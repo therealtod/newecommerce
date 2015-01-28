@@ -14,11 +14,12 @@ ini_set('display_errors', '1');
 $userid = $_SESSION["userid"];
 ?>
 <?php
+/*
 if (isset($_GET['deleten'])) {
     $add_to_delete = $_GET['deleten'];
     $query = mysql_query("DELETE FROM indirizzo WHERE user_id=$userid and add_code=$add_to_delete") or die(mysql_error());
 }
-
+*/
 ?>
 <?php
 /* Ottengo i dati inseriti nel form e li traduco in una istruzione mysql per
@@ -96,7 +97,7 @@ if ($addCount > 0) {
         $provincia = $row["provincia"];
         $address_list .= "Indirizzo n.: $n -- via $via $civico $appartamento $citta $cap ($provincia)  -  Regione: $regione  -  Paese: $paese"
                 . " &bull; "
-                . "<a href='address_list.php?userid=$userid&deleten=$n'>cancella</a><br />";
+                . "<br />";
     }
 } else {
     $address_list = "Attualmente non hai registrato nemmeno un indirizzo";

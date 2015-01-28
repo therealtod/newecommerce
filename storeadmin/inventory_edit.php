@@ -26,7 +26,6 @@ if (isset($_POST['product_name'])) /* se è stato cliccato il pulsante per
     /* aggiorniamo il database con i nuovi dati mediante un comando mysql
      */
     $sql = mysql_query("UPDATE prodotto SET prod_name='$product_name2', instock='$inStock2', price='$price2', description='$description2', cat_code='$category2', brand='$brand2' WHERE prod_code='$pid'") or die("Err:" . mysql_error());
-    echo $sql;
     if ($_FILES['fileField']['tmp_name'] != "") { //se non è vuoto 
         /* Aggiorniamo anche l'immagine nel nostro archivio
          * 

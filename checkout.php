@@ -6,7 +6,7 @@ require 'user_verify_script.php';
 ?>
 
 <?php
-if (isset ($_GET["m"])) {
+if (isset($_GET["m"])) {
     $userid = $_SESSION["userid"];
     $ship_code = $_GET["m"];
     $query3 = mysql_query("SELECT * FROM metodospedizione WHERE ship_code = $ship_code") or die(mysql_error());
@@ -15,19 +15,28 @@ if (isset ($_GET["m"])) {
     $met_price = $row3["met_price"];
 }
 
-    if (isset ($_POST["address"]) && isset($_POST["met_pag"])) {
+if (isset($_POST["address"]) && isset($_POST["met_pag"])) {
     $met_pag = $_POST['met_pag'];
     $ship_address = $_POST['address'];
-    $query = mysql_query("INSERT INTO transazione (user_id, pay_code, ship_name, ship_price, data)"
-            . "VALUES ($userid,'$met_pag','$met_name', $met_price , NOW() )") or die(mysql_error());
-    $trans_id = mysql_insert_id();
-    if ($met_pag == 1)
-    {
-        $query = mysql_query ("SELECT cardnum FROM creditcard WHERE userid=$userid") or die (mysql_error());
-        $row = mysql_fetch_array($query);
-        $cc_num = $row ["cardnum"];
-        $query = mysql_query ("UPDATE transazione SET cc_num='$cc_num' WHERE user_id=$userid") or die (mysql_error());
+    echo $userid . " " . $ship_address;
+    if ($met_pag == 1) {
+        $query = mysql_query("SELECT cardnum FROM creditcard WHERE userid=$userid") or die(mysql_error());
+        if ($row = mysql_fetch_array($query)) {
+            $cc_num = $row ["cardnum"];
+        }
+        else
+        {
+            header ("location: ./checkout.php?err=nocc");
+            exit();
+        }
+        $query = mysql_query("INSERT INTO transazione (user_id, pay_code, cc_num, ship_name, ship_price, data, ship_address)"
+                . "VALUES ($userid,'$met_pag', '$cc_num',  '$met_name', $met_price , NOW(), $ship_address )") or die(mysql_error());
+    } else {
+        $query = mysql_query("INSERT INTO transazione (user_id, pay_code, ship_name, ship_price, data, ship_address)"
+                . "VALUES ($userid,'$met_pag','$met_name', $met_price , NOW(), $ship_address )") or die(mysql_error());
     }
+    $trans_id = mysql_insert_id();
+
     $query = mysql_query("SELECT * FROM carrello WHERE user_id=$userid") or die(mysql_error());
     while ($row = mysql_fetch_array($query)) {
         $prod_code = $row["prod_code"];
@@ -48,6 +57,7 @@ if (isset ($_GET["m"])) {
         header("location: thanks.php");
     }
 }
+
 ?>
 
 
@@ -90,7 +100,7 @@ if ($metCount > 0) {
 
         $met_list .= "<input type='radio' name='met_pag' value=$met_code> $met_pagname - $met_info - $met_num <br>";
     }
-   }
+}
 ?>
 
 <head>
@@ -106,7 +116,7 @@ if ($metCount > 0) {
             <?php
             $query = mysql_query("SELECT * FROM carrello WHERE user_id = " . $userid);
             ?>
-             <table id="carrello" width="600px">
+            <table id="carrello" width="600px">
                 <tr>
                     <td></td>    <td id="titolo_cart"><b> Nome Prodotto</b></td> <td id="titolo_cart"> Prezzo Prodotto </td> <td id="titolo_cart"> Quantita'</td> <td id="titolo_cart">€</td>
                 </tr> 
@@ -156,8 +166,13 @@ if ($metCount > 0) {
 
 
                 <p> ------------------ </p>
-        <h3>Seleziona il metodo con cui desidere pagare:</h3>
-                            <?php echo $met_list; ?>
+                <h3>Seleziona il metodo con cui desidere pagare:</h3>
+                <?php echo $met_list; 
+                if (isset ($_GET["err"]))
+                {
+                    echo 'ERRORE : Hai selezionato il pagamento tramite carta di credito ma non ne hai impostata nessuna nessuna sul tuo profilo utente!';
+                }
+                    ?>
 
                 <br>
                 <input type="submit" name="button" id="button" value="Conferma ordine" />
@@ -167,7 +182,7 @@ if ($metCount > 0) {
                 <br>
                 <br>
                 <br>
-              
+
             </form>
         </div>
         <?php include_once("template_footer.php"); ?>

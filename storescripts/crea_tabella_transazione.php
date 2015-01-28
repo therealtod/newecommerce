@@ -10,7 +10,9 @@ $sqlCommand = "CREATE TABLE IF NOT EXISTS transazione (
     cc_num varchar (24),
     ship_name varchar(20) NOT NULL,
     ship_price int (3) NOT NULL,
-    PRIMARY KEY (id)
+    ship_address int(4) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (ship_address) REFERENCES indirizzo (add_code)
     )";
 
 if (mysql_query($sqlCommand) or die (mysql_error())) 

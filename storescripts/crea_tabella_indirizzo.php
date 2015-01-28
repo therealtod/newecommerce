@@ -12,7 +12,7 @@ $sqlCommand = "CREATE TABLE IF NOT EXISTS  indirizzo (
     provincia varchar(4),
     regione varchar (10),
     paese varchar (15),
-    PRIMARY KEY (add_code,user_id),
+    PRIMARY KEY (add_code),
     FOREIGN KEY (user_id) REFERENCES utente (id)
     )";
 if (mysql_query($sqlCommand))
