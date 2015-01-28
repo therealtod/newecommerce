@@ -181,3 +181,9 @@ a:active {
        background-color: #CCC;
        
    }
+   #trans{
+    border-right: 1px #CCC solid;
+   }
+   #trans_tr:hover{
+       background-color: #CCC;
+   }

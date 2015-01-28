@@ -28,6 +28,13 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         $pag_code = $row["pay_code"];
         $ship_name = $row["ship_name"];
         $tot = $row["ship_price"];
+        
+        $query3 = mysql_query("SELECT username FROM utente WHERE id=$userid");
+        $row3 = mysql_fetch_array($query3);
+        $username = $row3["username"];
+        $query4 = mysql_query("SELECT met_name FROM  metodopag WHERE met_code=$pag_code");
+        $row4 = mysql_fetch_array($query4);
+        $met_name = $row4["met_name"];
         $query2 = mysql_query("SELECT price, quantity FROM transactioncart WHERE trans_id=$id");
         while ($row = mysql_fetch_array($query2)) {
             $tot += $row["price"] * $row["quantity"];
@@ -35,8 +42,8 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
 
 
 
-        $transactions_list .= "ID: $id - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_name -- <em>eseguito il $date_added</em> "
-                . "&nbsp; &nbsp; &nbsp; <a href='transaction_details.php?id=$id'>dettagli</a><br>";
+        $transactions_list .= "<tr id='trans_tr'><td>$id</td><td><strong>$userid - $username</strong></td><td>$met_name</td><td>$ship_name</td><td><em>$date_added</em> "
+                . "</td><td>$tot</td><td><a href='transaction_details.php?id=$id'>dettagli</a></td></tr>";
     }
 } else {
 
@@ -63,7 +70,7 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
             -->
             <div align="left" style="margin-left:24px;">
                 <h2>Lista ordini eseguiti</h2>
-                 <table width="90%"><tr><td><b>ID</b></td><td><b>Metodo di Pagamento</b></td><td><b>Metodo di Spedizione</b></td><td><b>Data di esecuzione ordine</b></td><td><b>Totale €</b></td><td></td><td></td></tr>
+                <table id="trans" width="90%"><tr><td><b>ID</b></td><td><b>Utente</b></td><td><b>Metodo di Pagamento</b></td><td><b>Metodo di Spedizione</b></td><td><b>Data di esecuzione ordine</b></td><td><b>Totale €</b></td><td></td><td></td></tr>
         
                 <?php
                 /* stampo a schermo la lista dei prodotti nell'inventario
