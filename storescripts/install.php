@@ -15,6 +15,7 @@ require "crea_tabella_metodo_spedizione.php";
 require "crea_tabella_indirizzo.php";
 require "crea_tabella_transazione.php";
 require "crea_tabella_transactioncart.php";
+require "crea_tabella_metodo_pagamento.php";
 
 
 echo "<br>" . "Tutte le tabelle sono state create";
