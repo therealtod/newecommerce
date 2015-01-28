@@ -187,3 +187,6 @@ a:active {
    #trans_tr:hover{
        background-color: #CCC;
    }
+   #trans_selected{
+       background-color: #CCC;
+   }
