@@ -12,5 +12,6 @@ while ($row = mysql_fetch_array($query))
           $query = mysql_query ("DELETE FROM carrello WHERE user_id= $userid");
       }
 }
+header ('location: ./index.php');
 ?>
 
