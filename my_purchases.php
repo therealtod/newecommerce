@@ -116,7 +116,7 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         
        
         $mypurchases_list .= "<tr id='purchases'><td>$id</td><td>$pag_code</td><td>$ship_code</td><td>$date_added</td><td>$tot</td>"
-                . "<td></td><td><a href='my_purchases.php?p=$id'>visualizza</a></td></tr>";
+                . "<td></td><td><a href='purchase_details.php?id=$id'>dettagli</a></td></tr>";
         
     }
     }
@@ -186,7 +186,7 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
             l'aggiunta di un nuovo oggetto all'inventario in maniera
             semplice e comoda. Una volta inseriti i dati il sistema eseguirà
             il comando mysql per aggiungere l'oggetto nel daabase -->
-            <form action="inventory_list.php" enctype="multipart/form-data" name="myForm" id="myform" method="post">
+            <form action="my_purchases.php" enctype="multipart/form-data" name="myForm" id="myform" method="post">
                 <table width="90%" border="0" cellspacing="0" cellpadding="6">
 
                     <tr>
