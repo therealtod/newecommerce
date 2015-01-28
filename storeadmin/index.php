@@ -6,7 +6,7 @@ include "user_verify_script.php"
 $cleared="";
 if(isset($_GET['n'])){
     $n=$_GET['n'];
-    $cleared="sono state cancellate $n righe dalla tabella carrello";
+    $cleared="Questa funzione cancella le righe della tabella carrello più vecchie di 1 settimana. <br> Sono state cancellate $n righe dalla tabella carrello.";
     
 }
 ?>
