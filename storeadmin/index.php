@@ -23,7 +23,8 @@ include "user_verify_script.php"
                     <td id="admin_td"><a href="./transactions_list.php"><img src="../style/fatture.png" height="100px"> <br>Fatture</td>
                 </tr> 
                 <tr><td id="admin_td"><a href="shipping_list.php"><img src="../style/shipping_method.png" height="100px"> <br>Metodi di Spedizione</a></td>
-                  </tr></table></div>
+                    <td id="admin_td"><a href="./payment_list.php"><img src="../style/payment.png" height="100px"> <br>Metodi di Pagamento</td>
+</tr></table></div>
          <?php include_once("template_footer.php"); ?>
 
         </div>

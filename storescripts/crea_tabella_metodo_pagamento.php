@@ -4,7 +4,9 @@ require_once 'connect_to_mysql.php';
 
 $sqlCommand = "CREATE TABLE IF NOT EXISTS metodopag (
     met_code int(4) NOT NULL auto_increment,
-    met_name varchar(20) NOT NULL,
+    met_name varchar(32) NOT NULL,
+    met_num  varchar(32),
+    met_info text NOT NULL,
     PRIMARY KEY (met_code)
     )";
 
