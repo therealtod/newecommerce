@@ -12,17 +12,6 @@ include "storescripts/connect_to_mysql.php";
 /* per il momento inizializzo la variabile con una stringa vuota
  */
 if(isset($_GET["p"])){
-$trans_id = $_GET["p"];
-
-$trans_selected = mysql_query ("SELECT * FROM transazione WHERE id = $trans_id LIMIT 1");
-$selected="";
-    $row = mysql_fetch_array($trans_selected);  
-    $date_selected = strftime("%b %d, %Y", strtotime($row["data"]));
-        $userid_selected = $row["user_id"];
-        $pag_code_selected = $row["pag_code"];
-        $ship_code_selected = $row["ship_code"];
-        $tot_selected =  $row["tot"];    
-$selected .= "<tr id='selected'><td>$trans_id</td><td>$pag_code_selected</td><td>$ship_code_selected</td><td>$date_selected</td><td>$tot_selected</td></tr>";
 
 $transaction = "";
 /* effettuo una query sulla tabella dei prodotti
@@ -109,8 +98,8 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         $date_added = strftime("%b %d, %Y", strtotime($row["data"]));
         $id = $row["id"];
         $userid = $row["user_id"];
-        $pag_code = $row["pag_code"];
-        $ship_code = $row["ship_code"];
+        $pag_code = $row["pay_name"];
+        $ship_code = $row["ship_name"];
         $tot =  $row["tot"];        
         
         

@@ -26,7 +26,7 @@ if (isset($_GET["id"])) {
             <div id="pageContent">
                 <?php
                 $query = mysql_query("SELECT * FROM transactioncart WHERE trans_id = $transid") or die(mysql_error());
-                $row = mysql_fetch_array($query);
+               
                 ?>
                 <table id="transactioncart" width="600px">
                     <tr>
@@ -49,12 +49,12 @@ if (isset($_GET["id"])) {
                     ?>
                 </table>
                 <?php
-                $trans_selected = mysql_query("SELECT * FROM transazione WHERE id = $transid LIMIT 1");
+                $query = mysql_query("SELECT * FROM transazione WHERE id = $transid LIMIT 1");
+                $row = mysql_fetch_array($query);
                 $date = strftime("%b %d, %Y", strtotime($row["data"]));
                 $userid = $row["user_id"];
-                $pag_code = $row["pag_code"];
-                $ship_code = $row["ship_code"];
-                $tot = $row["tot"];
+                $pag_code = $row["pay_name"];
+                $ship_code = $row["ship_name"];
                 $selected = "<b>ID: $transid - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_code -- <em>eseguito il $date</em> </b>";
                 echo $selected;
                 ?>

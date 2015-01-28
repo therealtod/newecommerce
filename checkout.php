@@ -20,8 +20,8 @@ if ((isset($_GET["pay"])) && (isset($_GET["m"]))) {
 
     $met_pag = $_POST['met_pag'];
     $ship_address = $_POST['address'];
-    $query = mysql_query("INSERT INTO transazione (user_id, pag_code, ship_code, ship_price, data)"
-            . "VALUES ($userid,'$met_pag', '$ship_code', $met_price , NOW() )") or die(mysql_error());
+    $query = mysql_query("INSERT INTO transazione (user_id, pay_name, ship_name, ship_price, data)"
+            . "VALUES ($userid,'$met_pag', '$met_name', $met_price , NOW() )") or die(mysql_error());
     $trans_id = mysql_insert_id();
     $query = mysql_query("SELECT * FROM carrello WHERE user_id=$userid") or die(mysql_error());
     while ($row = mysql_fetch_array($query)) {

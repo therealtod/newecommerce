@@ -25,9 +25,8 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         $date_added = strftime("%b %d, %Y", strtotime($row["data"]));
         $id = $row["id"];
         $userid = $row["user_id"];
-        $pag_code = $row["pag_code"];
-        $ship_code = $row["ship_code"];
-        $tot =  $row["tot"];        
+        $pag_code = $row["pay_name"];
+        $ship_code = $row["ship_name"];        
         
         
        
