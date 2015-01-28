@@ -11,8 +11,8 @@ $rowcount = mysql_num_rows($sql);
 if ($rowcount > 0) {
     $row = mysql_fetch_array($sql);
     $creditcard = $row["cardnum"];
-    $message = "Attualmente hai associato la seguente carta al tuo account: <b>$creditcard</b><br>"
-            . "Per sostituirla, scrivi qui in basso il numero della nuova carta e conferma<br><br>";
+    $message = "Attualmente hai associato la seguente carta al tuo account: <b>$creditcard</b><br><br>"
+            . "Per sostituirla, scrivi qui in basso il numero della nuova carta e conferma<br>";
 } else {
     $message = "Non vi sono carte di credito associate al tuo utente, inseriscine una:";
 }
@@ -41,9 +41,9 @@ if (isset($_POST["creditcard"])) {
 <?php include_once("template_header.php"); ?>
         <div id="pageContent"><br />
 
+                <table width="90%" border="0" cellspacing="0" cellpadding="6">
 
             <form action="user_creditcard.php" enctype="multipart/form-data" name="myForm" id="myform" method="post">
-                <table width="90%" border="0" cellspacing="0" cellpadding="6">
 
                     <tr>
 <?php echo $message; ?>
@@ -51,18 +51,18 @@ if (isset($_POST["creditcard"])) {
                     <input name='creditcard' type='text' id='creditcard' size='64' />
                     </tr>
 
+                    <tr>
 
-
-                    <td><label>
+                    <label>
 
                             <input type="submit" name="button" id="button" value="Conferma Modifiche" />
-                        </label></td>
+                        </label>
                     </tr>
-                </table>
             </form>
-            <p>
-                <a href="user_panel.php">Torna al tuo Pannello utente</a></p>
-
+                    <p><tr>
+                    <a href="user_panel.php">Torna al tuo Pannello utente</a></p></tr>
+                
+        </table>
         </div>
 <?php include_once("template_footer.php"); ?>
 
