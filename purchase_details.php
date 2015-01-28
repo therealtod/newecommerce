@@ -53,9 +53,9 @@ if (isset($_GET["id"])) {
                 $row = mysql_fetch_array($query);
                 $date = strftime("%b %d, %Y", strtotime($row["data"]));
                 $userid = $row["user_id"];
-                $pag_code = $row["pay_name"];
-                $ship_code = $row["ship_name"];
-                $selected = "<b>ID: $transid - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_code -- <em>eseguito il $date</em> </b>";
+                $pay_name = $row["pay_name"];
+                $ship_name = $row["ship_name"];
+                $selected = "<b>ID: $transid - <strong>$userid</strong> - Pagato con: $pay_name - Metodo di spedizione: $ship_name -- <em>eseguito il $date</em> </b>";
                 echo $selected;
                 ?>
 

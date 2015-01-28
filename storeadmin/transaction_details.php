@@ -53,9 +53,9 @@ if (isset($_GET["id"])) {
                 $date = strftime("%b %d, %Y", strtotime($row["data"]));
                 $userid = $row["user_id"];
                 $pag_code = $row["pay_name"];
-                $ship_code = $row["ship_name"];
+                $ship_name = $row["ship_name"];
                 //$tot = $row["tot"];
-                $selected = "<b>ID: $transid - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_code -- <em>eseguito il $date</em> </b>";
+                $selected = "<b>ID: $transid - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_name -- <em>eseguito il $date</em> </b>";
                 echo $selected;
                 ?>
 

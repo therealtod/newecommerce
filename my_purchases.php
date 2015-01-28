@@ -48,13 +48,13 @@ if (isset ($_POST["userid"]))
 }
 if (isset ($_POST["ship_code"]))
 {
-    $ship_code = $_POST["ship_code"];
-    $query = mysql_query("SELECT * FROM $query WHERE ship_code = $ship_code") or die (mysql_error());
+    $ship_name = $_POST["ship_code"];
+    $query = mysql_query("SELECT * FROM $query WHERE ship_code = $ship_name") or die (mysql_error());
 }
 if (isset ($_POST["pay_code"]))
 {
-    $pay_code = $_POST["pay_code"];
-    $query = mysql_query ("SELECT * FROM $query WHERE pay_code = $pay_code") or die (mysql_error());
+    $pay_name = $_POST["pay_code"];
+    $query = mysql_query ("SELECT * FROM $query WHERE pay_code = $pay_name") or die (mysql_error());
 }
 if (isset ($_POST["tot_low_limit"]))
 {
@@ -99,12 +99,12 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         $id = $row["id"];
         $userid = $row["user_id"];
         $pag_code = $row["pay_name"];
-        $ship_code = $row["ship_name"];
+        $ship_name = $row["ship_name"];
         $tot =  $row["tot"];        
         
         
        
-        $mypurchases_list .= "<tr id='purchases'><td>$id</td><td>$pag_code</td><td>$ship_code</td><td>$date_added</td><td>$tot</td>"
+        $mypurchases_list .= "<tr id='purchases'><td>$id</td><td>$pag_code</td><td>$ship_name</td><td>$date_added</td><td>$tot</td>"
                 . "<td></td><td><a href='purchase_details.php?id=$id'>dettagli</a></td></tr>";
         
     }

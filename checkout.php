@@ -8,8 +8,8 @@ require 'user_verify_script.php';
 <?php
 if (isset($_GET["m"])) {
     $userid = $_SESSION["userid"];
-    $ship_code = $_GET["m"];
-    $query3 = mysql_query("SELECT * FROM metodospedizione WHERE ship_code = $ship_code") or die(mysql_error());
+    $ship_name = $_GET["m"];
+    $query3 = mysql_query("SELECT * FROM metodospedizione WHERE ship_code = $ship_name") or die(mysql_error());
     $row3 = mysql_fetch_array($query3);
     $met_name = $row3["met_name"];
     $met_price = $row3["met_price"];
@@ -130,7 +130,7 @@ if ($addCount > 0) {
             </table>
             <p style="text-align: left; padding-left: 40px;"> <a href="cart.php" text-align="left">Modifica ordine</a></p>
             <br>
-            <br><form action="checkout.php?pay=<?php echo 'yes'; ?>&m=<?php echo $ship_code; ?>" enctype="multipart/form-data" name="myForm" id="myform" method="post" >
+            <br><form action="checkout.php?pay=<?php echo 'yes'; ?>&m=<?php echo $ship_name; ?>" enctype="multipart/form-data" name="myForm" id="myform" method="post" >
                 <h3>Seleziona l'indirizzo a cui spedire l'ordine:</h3>  
                 <?php echo $address_list; ?>
 

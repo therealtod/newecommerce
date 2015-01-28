@@ -26,11 +26,11 @@ if ($transCount > 0) { //se trovo almeno un oggetto nell'inventario
         $id = $row["id"];
         $userid = $row["user_id"];
         $pag_code = $row["pay_name"];
-        $ship_code = $row["ship_name"];        
+        $ship_name = $row["ship_name"];        
         
         
        
-        $transactions_list .= "ID: $id - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_code -- <em>eseguito il $date_added</em> "
+        $transactions_list .= "ID: $id - <strong>$userid</strong> - Pagato con: $pag_code - Metodo di spedizione: $ship_name -- <em>eseguito il $date_added</em> "
                 . "&nbsp; &nbsp; &nbsp; <a href='transaction_details.php?id=$id'>dettagli</a><br>";
         
     }
@@ -58,13 +58,13 @@ if (isset ($_POST["userid"]))
 }
 if (isset ($_POST["ship_code"]))
 {
-    $ship_code = $_POST["ship_code"];
-    $query = mysql_query("SELECT * FROM $query WHERE ship_code = $ship_code") or die (mysql_error());
+    $ship_name = $_POST["ship_code"];
+    $query = mysql_query("SELECT * FROM $query WHERE ship_code = $ship_name") or die (mysql_error());
 }
 if (isset ($_POST["pay_code"]))
 {
-    $pay_code = $_POST["pay_code"];
-    $query = mysql_query ("SELECT * FROM $query WHERE pay_code = $pay_code") or die (mysql_error());
+    $pay_name = $_POST["pay_code"];
+    $query = mysql_query ("SELECT * FROM $query WHERE pay_code = $pay_name") or die (mysql_error());
 }
 if (isset ($_POST["tot_low_limit"]))
 {
