@@ -2,6 +2,14 @@
 session_start();
 include "user_verify_script.php"
 ?>
+<?php 
+$cleared="";
+if(isset($_GET['n'])){
+    $n=$_GET['n'];
+    $cleared="sono state cancellate $n righe dalla tabella carrello";
+    
+}
+?>
 
 <!DOCTYPE html>
 <head>
@@ -25,7 +33,9 @@ include "user_verify_script.php"
                 <tr><td id="admin_td"><a href="shipping_list.php"><img src="../style/shipping_method.png" height="100px"> <br>Metodi di Spedizione</a></td>
                     <td id="admin_td"><a href="./payment_list.php"><img src="../style/payment.png" height="100px"> <br>Metodi di Pagamento</td>
                             <td id="admin_td"><a href="../storescripts/empty_old_carts.php"><img src="../style/cleancart.png" height="100px"> <br>Pulisci tabella carrello</td>
-</tr></table></div>
+</tr></table>
+        <?php echo $cleared; ?>
+        </div>
          <?php include_once("template_footer.php"); ?>
 
         </div>
