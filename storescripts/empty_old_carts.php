@@ -14,6 +14,6 @@ while ($row = mysql_fetch_array($query))
           $n+=1;
       }
 }
-header ('location: ../storeadmin/index.php?n=$n');
+header ("location: ../storeadmin/index.php?n=$n");
 ?>
 
