@@ -73,6 +73,23 @@ if ($addCount > 0) {
 }
 ?>
 
+<?php
+$query = mysql_query("SELECT * FROM metodopag ORDER BY met_code") or die("Err:" . mysql_error());
+$metCount = mysql_num_rows($query);
+$met_list = "";
+if ($metCount > 0) {
+
+    while ($row = mysql_fetch_array($query)) {
+        $met_code = $row["met_code"];
+        $met_pagname = $row["met_name"];
+        $met_num = $row["met_num"];
+        $met_info = $row["met_info"];
+
+        $met_list .= "<input type='radio' name='met_pag' value='$met_code'> $met_pagname - $met_info - $met_num <br>";
+    }
+   }
+?>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Checkout - NewEcommerce</title>
@@ -86,7 +103,7 @@ if ($addCount > 0) {
             <?php
             $query = mysql_query("SELECT * FROM carrello WHERE user_id = " . $userid);
             ?>
-            <table id="carrello" width="600px">
+             <table id="carrello" width="600px">
                 <tr>
                     <td></td>    <td id="titolo_cart"><b> Nome Prodotto</b></td> <td id="titolo_cart"> Prezzo Prodotto </td> <td id="titolo_cart"> Quantita'</td> <td id="titolo_cart">€</td>
                 </tr> 
@@ -136,16 +153,9 @@ if ($addCount > 0) {
 
 
                 <p> ------------------ </p>
+        <h3>Seleziona il metodo con cui desidere pagare:</h3>
+                            <?php echo $met_list; ?>
 
-                <h3>Seleziona il metodo con cui desidere pagare:</h3>
-                <input type="radio" name="met_pag" value="'carta di credito'" checked>   Carta di Credito: <input name="met_pag" type="text" size="40" />
-                <br>
-                <input type="radio" name="met_pag" value="'bollettino'">   Bollettino postale (anticipato): C/C 8098800000.
-                <br>
-                <input type="radio" name="met_pag" value="'bonifico'">   Bonifico Bancario (anticipato) C/C intestato a NewEcommerce IBAN IT80988000000000.
-                <br>
-                <input type="radio" name="met_pag" value="'contrassegno'">   Contrassegno, pagamento alla consegna.
-                <br>
                 <br>
                 <input type="submit" name="button" id="button" value="Conferma ordine" />
 
@@ -154,6 +164,7 @@ if ($addCount > 0) {
                 <br>
                 <br>
                 <br>
+              
             </form>
         </div>
         <?php include_once("template_footer.php"); ?>
