@@ -6,23 +6,28 @@ require 'user_verify_script.php';
 ?>
 
 <?php
-if (isset($_GET["m"])) {
+if (isset ($_GET["m"])) {
     $userid = $_SESSION["userid"];
-    $ship_name = $_GET["m"];
-    $query3 = mysql_query("SELECT * FROM metodospedizione WHERE ship_code = $ship_name") or die(mysql_error());
+    $ship_code = $_GET["m"];
+    $query3 = mysql_query("SELECT * FROM metodospedizione WHERE ship_code = $ship_code") or die(mysql_error());
     $row3 = mysql_fetch_array($query3);
     $met_name = $row3["met_name"];
     $met_price = $row3["met_price"];
 }
-?>
-<?php
-if ((isset($_GET["pay"])) && (isset($_GET["m"]))) {
 
+    if (isset ($_POST["address"]) && isset($_POST["met_pag"])) {
     $met_pag = $_POST['met_pag'];
     $ship_address = $_POST['address'];
-    $query = mysql_query("INSERT INTO transazione (user_id, pay_name, ship_name, ship_price, data)"
-            . "VALUES ($userid,'$met_pag', '$met_name', $met_price , NOW() )") or die(mysql_error());
+    $query = mysql_query("INSERT INTO transazione (user_id, pay_code, ship_name, ship_price, data)"
+            . "VALUES ($userid,'$met_pag','$met_name', $met_price , NOW() )") or die(mysql_error());
     $trans_id = mysql_insert_id();
+    if ($met_pag == 1)
+    {
+        $query = mysql_query ("SELECT cardnum FROM creditcard WHERE userid=$userid") or die (mysql_error());
+        $row = mysql_fetch_array($query);
+        $cc_num = $row ["cardnum"];
+        $query = mysql_query ("UPDATE transazione SET cc_num='$cc_num' WHERE user_id=$userid") or die (mysql_error());
+    }
     $query = mysql_query("SELECT * FROM carrello WHERE user_id=$userid") or die(mysql_error());
     while ($row = mysql_fetch_array($query)) {
         $prod_code = $row["prod_code"];
@@ -38,9 +43,7 @@ if ((isset($_GET["pay"])) && (isset($_GET["m"]))) {
         $quantity_instock -= $quantity_bought;
         $query2 = mysql_query("UPDATE prodotto SET instock=$quantity_instock WHERE prod_code=$prod_code") or die(mysql_error());
 
-
-
-
+//infine svuotiamo il carrello 
         $query2 = mysql_query("DELETE FROM carrello WHERE user_id = $userid");
         header("location: thanks.php");
     }
@@ -85,7 +88,7 @@ if ($metCount > 0) {
         $met_num = $row["met_num"];
         $met_info = $row["met_info"];
 
-        $met_list .= "<input type='radio' name='met_pag' value='$met_code'> $met_pagname - $met_info - $met_num <br>";
+        $met_list .= "<input type='radio' name='met_pag' value=$met_code> $met_pagname - $met_info - $met_num <br>";
     }
    }
 ?>
@@ -147,7 +150,7 @@ if ($metCount > 0) {
             </table>
             <p style="text-align: left; padding-left: 40px;"> <a href="cart.php" text-align="left">Modifica ordine</a></p>
             <br>
-            <br><form action="checkout.php?pay=<?php echo 'yes'; ?>&m=<?php echo $ship_name; ?>" enctype="multipart/form-data" name="myForm" id="myform" method="post" >
+            <br><form action="checkout.php?m=<?php echo $ship_code ?>" enctype="multipart/form-data" name="myForm" id="myform" method="post" >
                 <h3>Seleziona l'indirizzo a cui spedire l'ordine:</h3>  
                 <?php echo $address_list; ?>
 
